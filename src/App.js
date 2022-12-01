@@ -12,8 +12,10 @@ function App() {
     </div>
   }
   return (
-    <div  >
-      <TableComponent data={data} />
+    <div className="px-20 py-10" >
+      <TableComponent data={data} config={{
+        "columns": ["name", "city", "email", "joiningDate", "role"]
+      }} />
     </div>
   );
 }
