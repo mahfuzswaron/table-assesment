@@ -6,6 +6,7 @@ const sortIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fil
 
 const TableComponent = ({ data, config }) => {
     const [sortedData, setSortedData] = useState(data);
+    const [ascending, setAscending] = useState(true);
     const { columns, sortingCols } = config;
     const customizedColumns = columns.filter(e => e !== "name");
     const colNamePlaceHolders = {
@@ -23,7 +24,7 @@ const TableComponent = ({ data, config }) => {
                 // dd/mm/yy --> mm/dd/yy 
                 dateA = `${dateA.slice(3, 5)}/${dateA.slice(0, 2)}/${dateA.slice(6, 10)}`;
                 dateB = `${dateB.slice(3, 5)}/${dateB.slice(0, 2)}/${dateB.slice(6, 10)}`
-                return new Date(dateA) - new Date(dateB);
+                return ascending ? new Date(dateA) - new Date(dateB) : new Date(dateB) - new Date(dateA);
 
             })])
         }
@@ -36,17 +37,18 @@ const TableComponent = ({ data, config }) => {
                     elementB = b.person.name.toLowerCase();
                 }
                 if (elementA < elementB) {
-                    return -1;
+                    return ascending ? -1 : 1
                 }
                 else if (elementA > elementB) {
-                    return 1;
+                    return ascending ? 1 : -1;
                 }
                 else {
                     return 0;
                 }
             });
-            setSortedData([...sortedArr])
+            setSortedData([...sortedArr]);
         }
+        setAscending(!ascending);
     }
 
     return (
@@ -60,7 +62,7 @@ const TableComponent = ({ data, config }) => {
                             <span>{colNamePlaceHolders[c]}</span>
                             {
                                 sortingCols.indexOf(c) !== -1 && // if the prop/cols is in sorting arr
-                                <button onClick={() => sortByProp(c)} > {sortIcon} </button>
+                                <button title={ascending ? "Sort Ascending" : "Sort Descending"} onClick={() => sortByProp(c)} > {sortIcon} </button>
                             }
                         </div>
                     </th>)
