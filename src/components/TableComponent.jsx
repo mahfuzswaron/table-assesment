@@ -18,9 +18,9 @@ const TableComponent = ({ data, config }) => {
     const sortByProp = prop => {
         if (prop === "joiningDate") {
             setSortedData([...sortedData.sort((a, b) => {
-                // 24/07/2020	`${dateA.slice(3,5)}/${dateA.slice(0,2)}/${dateA.slice(6,10)}`
                 let dateA = a.joiningDate,
                     dateB = b.joiningDate;
+                // dd/mm/yy --> mm/dd/yy 
                 dateA = `${dateA.slice(3, 5)}/${dateA.slice(0, 2)}/${dateA.slice(6, 10)}`;
                 dateB = `${dateB.slice(3, 5)}/${dateB.slice(0, 2)}/${dateB.slice(6, 10)}`
                 return new Date(dateA) - new Date(dateB);
@@ -29,8 +29,12 @@ const TableComponent = ({ data, config }) => {
         }
         else {
             const sortedArr = sortedData.sort((a, b) => {
-                let elementA = a[prop].toLowerCase(),
-                    elementB = b[prop].toLowerCase();
+                let elementA = a[prop]?.toLowerCase(),
+                    elementB = b[prop]?.toLowerCase();
+                if (prop === "name") {
+                    elementA = a.person.name.toLowerCase();
+                    elementB = b.person.name.toLowerCase();
+                }
                 if (elementA < elementB) {
                     return -1;
                 }

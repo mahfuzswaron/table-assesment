@@ -15,7 +15,7 @@ function App() {
     <div className="px-20 py-10" >
       <TableComponent data={data} config={{
         "columns": ["name", "city", "email", "joiningDate", "role"],
-        "sortingCols": ["name", "email", "role", "joiningDate"]
+        "sortingCols": ["name", "city", "email", "role", "joiningDate"]
       }} />
     </div>
   );
