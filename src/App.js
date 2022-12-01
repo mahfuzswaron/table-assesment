@@ -6,7 +6,7 @@ function App() {
   useState(() => {
     fetch("tableData.json").then(res => res.json()).then(data => setData(data))
   }, []);
-  if (!data) {
+  if (!data || !data.length) {
     return <div>
       <p>Loading...</p>
     </div>
@@ -14,7 +14,8 @@ function App() {
   return (
     <div className="px-20 py-10" >
       <TableComponent data={data} config={{
-        "columns": ["name", "city", "email", "joiningDate", "role"]
+        "columns": ["name", "city", "email", "joiningDate", "role"],
+        "sortingCols": ["name", "email", "role", "joiningDate"]
       }} />
     </div>
   );
