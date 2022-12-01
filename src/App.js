@@ -12,10 +12,22 @@ function App() {
     </div>
   }
   return (
-    <div className="px-20 py-10" >
+    <div className="px-20 py-10 grid grid-cols-1 gap-20" >
       <TableComponent data={data} config={{
         "columns": ["name", "city", "email", "joiningDate", "role"],
         "sortingCols": ["name", "city", "email", "role", "joiningDate"]
+      }} />
+      <TableComponent data={data} config={{
+        "columns": ["email", "joiningDate", "role"],
+        "sortingCols": ["email", "role", "joiningDate"]
+      }} />
+      <TableComponent data={data} config={{
+        "columns": ["name", "city", "email",],
+        "sortingCols": ["name", "city", "email",]
+      }} />
+      <TableComponent data={data} config={{
+        "columns": ["name", "city", "joiningDate", "role"],
+        "sortingCols": ["name", "city", "joiningDate", "role"]
       }} />
     </div>
   );

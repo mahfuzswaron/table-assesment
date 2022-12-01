@@ -52,21 +52,23 @@ const TableComponent = ({ data, config }) => {
     }
 
     return (
-        <table className='w-full px-10 border text-[0.875rem] text-[#383838]' >
+        <table className='max-w-fit px-10 border text-[0.875rem] text-[#383838]' >
             <thead>
-                {
-                    columns.map(c => <th
-                        className='text-start border border-[#E1E1E1] px-[0.625rem] py-[0.5rem] font-semibold  '
-                        key={c} >
-                        <div className='flex space-x-[0.625rem] items-center '>
-                            <span>{colNamePlaceHolders[c]}</span>
-                            {
-                                sortingCols.indexOf(c) !== -1 && // if the prop/cols is in sorting arr
-                                <button title={ascending ? "Sort Ascending" : "Sort Descending"} onClick={() => sortByProp(c)} > {sortIcon} </button>
-                            }
-                        </div>
-                    </th>)
-                }
+                <tr>
+                    {
+                        columns.map(c => <th
+                            className={` ${c === "email" ? "w-[13.75rem" : "w-[10.938rem]"} text-start border border-[#E1E1E1] px-[0.625rem] py-[0.5rem] font-semibold`}
+                            key={c} >
+                            <div className='flex space-x-[0.625rem] items-center '>
+                                <span>{colNamePlaceHolders[c]}</span>
+                                {
+                                    sortingCols.indexOf(c) !== -1 && // if the prop/cols is in sortingCols
+                                    <button title={ascending ? "Sort Ascending" : "Sort Descending"} onClick={() => sortByProp(c)} > {sortIcon} </button>
+                                }
+                            </div>
+                        </th>)
+                    }
+                </tr>
             </thead>
             <tbody>
                 {
