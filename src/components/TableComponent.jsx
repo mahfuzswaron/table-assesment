@@ -60,9 +60,10 @@ const TableComponent = ({ data, config }) => {
                             <div className='flex space-x-[0.625rem] items-center '>
                                 <span>{colNamePlaceHolders[c]}</span>
                                 {
-                                    sortingCols.indexOf(c) !== -1 && // if the prop/cols is in sortingCols
-                                    <button title={ascending ? "Sort Ascending" : "Sort Descending"} onClick={() => sortByProp(c)} >
+                                    sortingCols.indexOf(c) !== -1 && // if the prop is in sortingCols
+                                    <button className='tooltip' onClick={() => sortByProp(c)} >
                                         <img src={sortIcon} alt="" />
+                                        <span className='tooltiptext'>{ascending ? "Sort Ascending" : "Sort Descending"} </span>
                                     </button>
                                 }
                             </div>
