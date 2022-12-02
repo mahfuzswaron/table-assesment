@@ -7,8 +7,8 @@ function App() {
     fetch("tableData.json").then(res => res.json()).then(data => setData(data))
   }, []);
   if (!data || !data.length) {
-    return <div>
-      <p>Loading...</p>
+    return <div className="flex justify-center items-center h-screen">
+      <div class="spinner"><div></div><div></div><div></div></div>
     </div>
   }
   return (
