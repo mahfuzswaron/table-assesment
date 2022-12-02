@@ -52,12 +52,12 @@ const TableComponent = ({ data, config }) => {
     }
 
     return (
-        <table className='max-w-fit px-10 border text-[0.875rem] text-[#383838]' >
+        <table className='max-w-fit px-10 text-[0.875rem] text-[#383838] border border-collapse border-[#E1E1E1]' >
             <thead>
-                <tr>
+                <tr className=''>
                     {
                         columns.map(c => <th
-                            className={` ${c === "email" ? "w-[13.75rem" : "w-[10.938rem]"} text-start border border-[#E1E1E1] px-[0.625rem] py-[0.5rem] font-semibold`}
+                            className={` ${c === "email" ? "w-[13.75rem" : "w-[10.938rem]"}  px-[0.625rem] py-[0.5rem] font-semibold border border-[#E1E1E1]`}
                             key={c} >
                             <div className='flex space-x-[0.625rem] items-center '>
                                 <span>{colNamePlaceHolders[c]}</span>
@@ -77,13 +77,15 @@ const TableComponent = ({ data, config }) => {
                             <>
                                 {
                                     columns.indexOf("name") !== -1 &&
-                                    <td className="flex space-x-[0.625rem] items-center border-[0.5px] border-[#E1E1E1] px-[0.625rem] py-[0.5rem]" >
-                                        <img src={d.person.avatar} alt="profile pic" />
-                                        <p>{`${d.person.name}`}</p>
+                                    <td className="px-[0.625rem] py-[0.5rem] border border-[#E1E1E1]" >
+                                        <div className="grid grid-cols-4 items-center ">
+                                            <img className='col-span-1' src={d.person.avatar} alt="profile pic" />
+                                            <p className='col-span-3 ' >{`${d.person.name}`}</p>
+                                        </div>
                                     </td>
                                 }
                                 {
-                                    customizedColumns.map(prop => <td key={prop} className="border border-[#E1E1E1] px-[0.625rem] py-[0.5rem]" >{
+                                    customizedColumns.map(prop => <td key={prop} className=" px-[0.625rem] py-[0.5rem] border border-[#E1E1E1]" >{
                                         <span className={`${prop === "email" && "text-[#0071CC] underline"}`} >{d[prop]}</span>
                                     }</td>)
                                 }
