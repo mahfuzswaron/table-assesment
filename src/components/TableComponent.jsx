@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
+import sortIcon from "../ArrowsDownUp.svg";
 
-const sortIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
-    <path fillRule="evenodd" d="M2.24 6.8a.75.75 0 001.06-.04l1.95-2.1v8.59a.75.75 0 001.5 0V4.66l1.95 2.1a.75.75 0 101.1-1.02l-3.25-3.5a.75.75 0 00-1.1 0L2.2 5.74a.75.75 0 00.04 1.06zm8 6.4a.75.75 0 00-.04 1.06l3.25 3.5a.75.75 0 001.1 0l3.25-3.5a.75.75 0 10-1.1-1.02l-1.95 2.1V6.75a.75.75 0 00-1.5 0v8.59l-1.95-2.1a.75.75 0 00-1.06-.04z" clipRule="evenodd" />
-</svg>
 
 const TableComponent = ({ data, config }) => {
     const [sortedData, setSortedData] = useState(data);
@@ -63,7 +61,9 @@ const TableComponent = ({ data, config }) => {
                                 <span>{colNamePlaceHolders[c]}</span>
                                 {
                                     sortingCols.indexOf(c) !== -1 && // if the prop/cols is in sortingCols
-                                    <button title={ascending ? "Sort Ascending" : "Sort Descending"} onClick={() => sortByProp(c)} > {sortIcon} </button>
+                                    <button title={ascending ? "Sort Ascending" : "Sort Descending"} onClick={() => sortByProp(c)} >
+                                        <img src={sortIcon} alt="" />
+                                    </button>
                                 }
                             </div>
                         </th>)
@@ -86,7 +86,7 @@ const TableComponent = ({ data, config }) => {
                                 }
                                 {
                                     customizedColumns.map(prop => <td key={prop} className=" px-[0.625rem] py-[0.5rem] border border-[#E1E1E1]" >{
-                                        <span className={`${prop === "email" && "text-[#0071CC] underline"}`} >{d[prop]}</span>
+                                        <span className={`${prop === "email" && "text-[#0071CC] underline underline-offset-2 "}`} >{d[prop]}</span>
                                     }</td>)
                                 }
                             </>
