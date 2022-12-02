@@ -4,7 +4,7 @@ const Header = () => {
     return (
         <div className="mx-20 py-10 f-poppins" >
 
-            <h1 className="text-5xl text-blue-500 font-medium f-poppins" >Table Assessment Solution</h1>
+            <h1 className="text-5xl text-blue-500 font-medium f-poppins" >Employee Info</h1>
             <p className="text-md text-gray-400 my-1 f-poppins">Build with React.js and Tailwindcss</p>
 
             <div className="flex space-x-4 items-center my-5" >
