@@ -6,7 +6,7 @@ const TableComponent = ({ data, config }) => {
     const [sortedData, setSortedData] = useState(data);
     const [ascending, setAscending] = useState(true);
     const { columns, sortingCols } = config;
-    const customizedColumns = columns.filter(e => e !== "name");
+    const customizedColumns = columns.filter(e => e !== "name"); // cols Array without Name property
     const colNamePlaceHolders = {
         name: "Name",
         city: "City",
@@ -15,21 +15,26 @@ const TableComponent = ({ data, config }) => {
         role: "Role"
     };
     const sortByProp = prop => {
+        // sort joining date. 
         if (prop === "joiningDate") {
-            setSortedData([...sortedData.sort((a, b) => {
+            const sortedArr = sortedData.sort((a, b) => {
                 let dateA = a.joiningDate,
                     dateB = b.joiningDate;
-                // dd/mm/yy --> mm/dd/yy 
+                // converts date format to parse and compare > dd/mm/yy --> mm/dd/yy 
                 dateA = `${dateA.slice(3, 5)}/${dateA.slice(0, 2)}/${dateA.slice(6, 10)}`;
                 dateB = `${dateB.slice(3, 5)}/${dateB.slice(0, 2)}/${dateB.slice(6, 10)}`
                 return ascending ? new Date(dateA) - new Date(dateB) : new Date(dateB) - new Date(dateA);
 
-            })])
+            })
+            setSortedData([...sortedArr])
         }
+        // sorts other props
         else {
             const sortedArr = sortedData.sort((a, b) => {
+                //  for all props without name 
                 let elementA = a[prop]?.toLowerCase(),
                     elementB = b[prop]?.toLowerCase();
+                // only for name property
                 if (prop === "name") {
                     elementA = a.person.name.toLowerCase();
                     elementB = b.person.name.toLowerCase();
@@ -46,13 +51,13 @@ const TableComponent = ({ data, config }) => {
             });
             setSortedData([...sortedArr]);
         }
-        setAscending(!ascending);
+        setAscending(!ascending); // updates Ascending / Descending
     }
 
     return (
         <table className='max-w-fit px-10 text-[0.875rem] text-[#383838] border border-collapse border-[#E1E1E1]' >
             <thead>
-                <tr className=''>
+                <tr>
                     {
                         columns.map(c => <th
                             className={` ${c === "email" ? "w-[13.75rem" : "w-[10.938rem]"}  px-[0.625rem] py-[0.5rem] font-semibold border border-[#E1E1E1]`}
@@ -61,6 +66,7 @@ const TableComponent = ({ data, config }) => {
                                 <span>{colNamePlaceHolders[c]}</span>
                                 {
                                     sortingCols.indexOf(c) !== -1 && // if the prop is in sortingCols
+                                    // sort button 
                                     <button className='tooltip' onClick={() => sortByProp(c)} >
                                         <img src={sortIcon} alt="" />
                                         <span className='tooltiptext'>{ascending ? "Sort Ascending" : "Sort Descending"} </span>
@@ -77,6 +83,7 @@ const TableComponent = ({ data, config }) => {
                         {
                             <>
                                 {
+                                    // if name exists in columns array, render name. name is in person object, not in the root object. so, we need to access it by d.person.name. And this column requires an avatar also. that's why its code is separate.
                                     columns.indexOf("name") !== -1 &&
                                     <td className="px-[0.625rem] py-[0.5rem] border border-[#E1E1E1]" >
                                         <div className="grid grid-cols-4 items-center ">
@@ -85,6 +92,7 @@ const TableComponent = ({ data, config }) => {
                                         </div>
                                     </td>
                                 }
+                                {/* rest properties */}
                                 {
                                     customizedColumns.map(prop => <td key={prop} className=" px-[0.625rem] py-[0.5rem] border border-[#E1E1E1]" >{
                                         <span className={`${prop === "email" && "text-[#0071CC] underline underline-offset-2 "}`} >{d[prop]}</span>
